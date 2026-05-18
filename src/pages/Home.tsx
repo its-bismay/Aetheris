@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
 import { ChevronRight, Zap, BarChart2, Mic, FileDiff } from 'lucide-react';
 import { useRef } from 'react';
 
-// Common animations
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -25,19 +24,19 @@ export default function Home() {
     offset: ["start start", "end start"]
   });
   
-  // Subtle parallax effect on the background glow
+
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0A0A0A]" ref={containerRef}>
-      {/* Background Radial Glow */}
+
       <motion.div style={{ y }} className="absolute inset-0 z-0 flex items-start justify-center pointer-events-none" aria-hidden="true">
         <div className="h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[#6366F1]/10 opacity-50 blur-[120px]" />
       </motion.div>
 
       <main className="relative z-10 flex flex-col items-center px-4 pb-24 pt-20 sm:px-6 lg:px-8">
         
-        {/* HERO SECTION */}
+
         <section aria-labelledby="hero-heading" className="flex flex-col items-center text-center max-w-4xl mx-auto mb-24">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -89,7 +88,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* PREVIEW CARD */}
+
         <motion.section 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,10 +97,10 @@ export default function Home() {
           aria-label="Platform Dashboard Preview"
         >
           <div className="relative w-full overflow-hidden rounded-xl border border-[#262626] bg-[#050505] shadow-2xl transition-transform hover:scale-[1.01] duration-500 group">
-            {/* Ambient glass glow */}
+
             <div className="absolute inset-0 bg-linear-to-br from-[#6366F1]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             
-            {/* Header bar */}
+
             <div className="flex items-center border-b border-[#262626] bg-[#121212] px-4 py-3">
               <div className="flex gap-1.5" aria-hidden="true">
                 <div className="h-3 w-3 rounded-full bg-[#262626]" />
@@ -113,7 +112,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Code content simulation */}
+
             <div className="p-6 font-mono text-sm leading-relaxed text-[#EDEDED]/70 h-[400px] overflow-hidden relative">
               <div className="absolute top-0 left-0 w-12 h-full border-r border-[#262626] bg-[#0A0A0A] flex flex-col items-center py-6 text-xs text-[#262626] select-none" aria-hidden="true">
                 {[...Array(15)].map((_, i) => <span key={i} className="mb-[6px]">{i+1}</span>)}
@@ -139,13 +138,13 @@ export default function Home() {
                 </div>
                 <div className="mt-2">{'}'}</div>
               </div>
-              {/* Bottom gradient fade for the code window */}
+
               <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-[#050505] to-transparent pointer-events-none" />
             </div>
           </div>
         </motion.section>
 
-        {/* FEATURE GRID */}
+
         <section aria-labelledby="features-heading" className="w-full max-w-6xl mb-32">
           <h2 id="features-heading" className="sr-only">Platform Features</h2>
           <motion.div 
@@ -155,7 +154,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
-            {/* Card 1: Streaming Inference */}
+
             <motion.div variants={fadeInUp} className="group flex flex-col rounded-xl border border-[#262626] bg-[#121212] p-8 transition-colors hover:border-[#464554] hover:bg-[#1A1C1C]">
               <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-sm bg-[#0A0A0A] border border-[#262626] text-[#6366F1]" aria-hidden="true">
                 <Zap className="h-5 w-5" />
@@ -172,7 +171,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Card 2: Token Metrics */}
+
             <motion.div variants={fadeInUp} className="group flex flex-col rounded-xl border border-[#262626] bg-[#121212] p-8 transition-colors hover:border-[#464554] hover:bg-[#1A1C1C]">
               <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-sm bg-[#0A0A0A] border border-[#262626] text-[#6366F1]" aria-hidden="true">
                 <BarChart2 className="h-5 w-5" />
@@ -197,7 +196,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Card 3: Multimodal Input */}
+
             <motion.div variants={fadeInUp} className="group flex flex-col rounded-xl border border-[#262626] bg-[#121212] p-8 transition-colors hover:border-[#464554] hover:bg-[#1A1C1C]">
               <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-sm bg-[#0A0A0A] border border-[#262626] text-[#6366F1]" aria-hidden="true">
                 <Mic className="h-5 w-5" />
@@ -226,7 +225,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Card 4: Token-Level Diffing */}
+
             <motion.div variants={fadeInUp} className="group flex flex-col rounded-xl border border-[#262626] bg-[#121212] p-8 transition-colors hover:border-[#464554] hover:bg-[#1A1C1C]">
               <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-sm bg-[#0A0A0A] border border-[#262626] text-[#6366F1]" aria-hidden="true">
                 <FileDiff className="h-5 w-5" />
@@ -248,7 +247,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* METRICS SECTION */}
+
         <section aria-labelledby="metrics-heading" className="w-full max-w-5xl mb-32 border-y border-[#262626] py-16">
           <h2 id="metrics-heading" className="sr-only">Platform Metrics</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-[#262626]">
@@ -273,7 +272,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* BOTTOM CTA */}
         <section aria-labelledby="cta-heading" className="w-full max-w-4xl">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
@@ -282,7 +280,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative overflow-hidden rounded-2xl border border-[#262626] bg-linear-to-b from-[#121212] to-[#0A0A0A] p-12 md:p-20 text-center"
           >
-            {/* Background ambient glow inside CTA */}
+
             <div className="absolute top-0 left-1/2 -translate-x-1/2 h-32 w-[60%] bg-[#6366F1]/10 blur-[80px] rounded-full pointer-events-none" aria-hidden="true" />
             
             <h2 id="cta-heading" className="relative z-10 font-serif text-3xl md:text-5xl font-semibold text-[#EDEDED] mb-6" style={{ fontFamily: 'Geist, sans-serif' }}>
@@ -307,7 +305,7 @@ export default function Home() {
   );
 }
 
-// Utility for class merging
+
 function cn(...classes: (string | undefined | null | false)[]) {
   return classes.filter(Boolean).join(' ');
 }
