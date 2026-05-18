@@ -149,15 +149,15 @@ The **Model Comparison (Diff View)** features a completely custom, dependency-fr
 
 ```mermaid
 graph TD
-    Input[Input Text A & Text B] --> Tokenizer[Regex Tokenizer: preserve structure & whitespaces]
-    Tokenizer --> Init[Initialize Row Int32Array Buffers]
-    Init --> OuterLoop[Outer Loop: Token A index i]
-    OuterLoop --> InnerLoop[Inner Loop: Token B index j]
-    InnerLoop --> Cell[Compute Edit Cost: eq=0, del/ins/sub=1]
-    Cell --> DP[Update DP Matrix Cells]
-    DP --> Trace[Backtrack Traceback from DP[M][N] to DP[0][0]]
-    Trace --> EditOps[Generate List of Edit Operations: eq, ins, del, sub]
-    EditOps --> Render[Render to side-by-side Panel interfaces]
+    Input["Input Text A & Text B"] --> Tokenizer["Regex Tokenizer: preserve structure & whitespaces"]
+    Tokenizer --> Init["Initialize Row Int32Array Buffers"]
+    Init --> OuterLoop["Outer Loop: Token A index i"]
+    OuterLoop --> InnerLoop["Inner Loop: Token B index j"]
+    InnerLoop --> Cell["Compute Edit Cost: eq=0, del/ins/sub=1"]
+    Cell --> DP["Update DP Matrix Cells"]
+    DP --> Trace["Backtrack Traceback from DP(M,N) to DP(0,0)"]
+    Trace --> EditOps["Generate List of Edit Operations: eq, ins, del, sub"]
+    EditOps --> Render["Render to side-by-side Panel interfaces"]
 ```
 
 #### A. Regex Tokenizer (`src/lib/diff/tokenizer.ts`)
