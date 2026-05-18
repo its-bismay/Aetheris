@@ -62,7 +62,7 @@ export function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="navbar-indicator"
-                      className="absolute bottom-[-21px] left-0 right-0 h-[2px] bg-[#6366F1]"
+                      className="absolute -bottom-px left-0 right-0 h-[2px] bg-[#6366F1]"
                       style={{
                         boxShadow: '0 -2px 10px rgba(99, 102, 241, 0.4)',
                       }}

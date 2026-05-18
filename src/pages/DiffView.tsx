@@ -27,7 +27,7 @@ export default function DiffView() {
   const panelARef = useRef<HTMLDivElement>(null);
   const panelBRef = useRef<HTMLDivElement>(null);
 
-  // Synchronized Scrolling Logic
+
   useEffect(() => {
     const elA = panelARef.current;
     const elB = panelBRef.current;
@@ -61,16 +61,15 @@ export default function DiffView() {
     };
   }, [lockScroll, ops]);
 
-  // Real-time diff calculation
+ 
   useEffect(() => {
-    // If both are empty, don't run diff
+
     if (!streamA.state.output && !streamB.state.output) {
       setOps([]);
       return;
     }
     
-    // We run the Wagner-Fischer algorithm on every render when output changes.
-    // O(m*n) is extremely fast for small/medium outputs (e.g. up to 1000 tokens).
+
     const tokensA = tokenize(streamA.state.output);
     const tokensB = tokenize(streamB.state.output);
 
@@ -92,8 +91,7 @@ export default function DiffView() {
     setModelA(modelB);
     setModelB(modelA);
     
-    // We shouldn't auto-run stream on swap, but if they were already streaming, maybe?
-    // Easiest is to just swap the selectors for the next run.
+
   };
 
   const isStreaming = streamA.state.status === 'streaming' || streamB.state.status === 'streaming';
@@ -102,7 +100,7 @@ export default function DiffView() {
     <div className="min-h-[calc(100vh-65px)] w-full bg-[#050505] overflow-y-auto">
       <div className="max-w-[1600px] mx-auto px-6 py-12 space-y-8">
         
-        {/* Page Header */}
+
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
           <div>
             <h1 className="text-4xl font-bold tracking-tight text-[#EDEDED] mb-3">Model Comparison</h1>
@@ -112,7 +110,7 @@ export default function DiffView() {
           </div>
 
           <div className="flex items-center gap-4 bg-[#0A0A0A] border border-[#262626] rounded-md p-1.5 self-start shrink-0">
-            {/* Legend */}
+
             <div className="flex items-center gap-3 px-3 border-r border-[#262626]">
               <span className="flex items-center gap-1.5 text-[10px] font-mono tracking-widest text-[#EDEDED]/70 uppercase">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#818CF8]" /> Added
@@ -125,7 +123,7 @@ export default function DiffView() {
               </span>
             </div>
             
-            {/* Lock Scroll Toggle */}
+
             <button
               onClick={() => setLockScroll(!lockScroll)}
               className="flex items-center gap-2 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest uppercase transition-colors hover:bg-[#1A1A1A] text-[#EDEDED]/70 outline-none focus-visible:ring-2 focus-visible:ring-[#6366F1]"
@@ -136,7 +134,7 @@ export default function DiffView() {
           </div>
         </div>
 
-        {/* Toolbar */}
+
         <DiffToolbar
           prompt={prompt}
           setPrompt={setPrompt}
@@ -149,7 +147,7 @@ export default function DiffView() {
           isStreaming={isStreaming}
         />
 
-        {/* Side-by-Side Comparison */}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[600px]">
           <ComparisonPanel 
             ref={panelARef}
@@ -167,7 +165,7 @@ export default function DiffView() {
           />
         </div>
 
-        {/* Metrics & Insights */}
+
         <MetricsCards metrics={metrics} />
         <AlgorithmAccordion />
 
