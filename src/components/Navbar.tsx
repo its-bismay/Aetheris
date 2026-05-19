@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -17,10 +17,35 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
+
+  const handleCloseMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+
+    setTimeout(() => {
+      menuButtonRef.current?.focus();
+    }, 10);
+  };
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        handleCloseMobileMenu();
+      }
+    };
+    
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#262626] bg-[#0A0A0A]/80 backdrop-blur-md flex flex-col">
@@ -84,6 +109,7 @@ export function Navbar() {
 
         <div className="flex justify-end md:hidden">
           <button
+            ref={menuButtonRef}
             type="button"
             onClick={toggleMobileMenu}
             aria-controls="mobile-menu"

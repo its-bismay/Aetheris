@@ -104,39 +104,6 @@ export function PromptPanel({ onStart, onStop, onRetry, onClear, status }: Promp
   };
 
 
-  useEffect(() => {
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
-
-      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        if (!isStreaming && !((mode === 'text' && !prompt.trim()) || (mode === 'audio' && !isRecording && !audioFile))) {
-          handleStart();
-        }
-      }
-      
-
-      if (e.key === 'Escape' && isStreaming) {
-        e.preventDefault();
-        onStop();
-      }
-
-
-      if (e.key.toLowerCase() === 'r' && (e.metaKey || e.ctrlKey) && e.shiftKey) {
-        e.preventDefault();
-        if (!isStreaming && hasError) {
-          onRetry(prompt, model);
-        }
-      }
-
-      if (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        onClear();
-      }
-    };
-
-    window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
-  }, [isStreaming, hasError, mode, prompt, audioFile, isRecording, model, handleStart, onStop, onRetry, onClear]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -236,7 +203,7 @@ export function PromptPanel({ onStart, onStop, onRetry, onClear, status }: Promp
                     >
                       {isRecording ? <Square className="h-8 w-8 fill-current" /> : <Mic className="h-8 w-8" />}
                     </button>
-                    <div className="text-sm text-[#EDEDED]/50 text-center max-w-[250px]">
+                    <div className="text-sm text-[#EDEDED]/50 text-center max-w-[250px]" aria-live="polite">
                       {isRecording ? "Recording in progress..." : "Click to record audio instructions"}
                       {permissionError && (
                         <p className="text-red-400 mt-2 text-xs leading-relaxed">{permissionError}</p>

@@ -35,10 +35,12 @@ export const ComparisonPanel = forwardRef<HTMLDivElement, ComparisonPanelProps>(
         <div
           ref={ref}
           className={cn(
-            "flex-1 overflow-y-auto p-6 custom-scrollbar scroll-smooth",
+            "flex-1 overflow-y-auto p-6 custom-scrollbar scroll-smooth outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#6366F1]",
 
             side === 'A' ? "bg-linear-to-b from-red-500/2 to-transparent" : "bg-linear-to-b from-[#6366F1]/2 to-transparent"
           )}
+          tabIndex={0}
+          aria-label={`Diff Output for ${title}`}
         >
           <TokenRenderer ops={ops} side={side} />
         </div>

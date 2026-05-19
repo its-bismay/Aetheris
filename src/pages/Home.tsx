@@ -1,31 +1,33 @@
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { motion, useScroll, useTransform, type Variants, useReducedMotion } from 'framer-motion';
 import { ChevronRight, Zap, BarChart2, Mic, FileDiff } from 'lucide-react';
 import { useRef } from 'react';
 
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] } }
+  };
+
+  const staggerContainer: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.1
+      }
+    }
+  };
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
 
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", shouldReduceMotion ? "0%" : "50%"]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0A0A0A]" ref={containerRef}>
@@ -39,12 +41,12 @@ export default function Home() {
 
         <section aria-labelledby="hero-heading" className="flex flex-col items-center text-center max-w-4xl mx-auto mb-24">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }}
             className="mb-8 inline-flex items-center rounded-full border border-[#262626] bg-[#121212]/50 px-3 py-1 text-xs font-medium text-[#EDEDED] backdrop-blur-md"
           >
-            <span className="mr-2 h-1.5 w-1.5 rounded-full bg-[#6366F1] animate-pulse" aria-hidden="true" />
+            <span className={cn("mr-2 h-1.5 w-1.5 rounded-full bg-[#6366F1]", shouldReduceMotion ? "" : "animate-pulse")} aria-hidden="true" />
             Powered by Gemini
           </motion.div>
 
@@ -90,9 +92,9 @@ export default function Home() {
 
 
 <motion.section
-  initial={{ opacity: 0, y: 40 }}
+  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
   animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+  transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
   className="w-full max-w-5xl mb-32"
   aria-label="Streaming Inference Preview"
 >
@@ -228,7 +230,7 @@ export default function Home() {
                     key={i}
                     initial={{ height: 0 }}
                     whileInView={{ height: `${height}%` }}
-                    transition={{ duration: 0.8, delay: i * 0.1 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : i * 0.1 }}
                     viewport={{ once: true }}
                     className={cn(
                       "w-full rounded-t-sm bg-[#262626] transition-colors group-hover:bg-[#464554]",
@@ -257,7 +259,7 @@ export default function Home() {
                       key={i}
                       initial={{ height: "20%" }}
                       animate={{ height: ["20%", `${Math.random() * 80 + 20}%`, "20%"] }}
-                      transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.05 }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 1.5, repeat: shouldReduceMotion ? 0 : Infinity, delay: shouldReduceMotion ? 0 : i * 0.05 }}
                       className={cn(
                         "w-1 rounded-full",
                         i < 12 ? "bg-[#6366F1]" : "bg-[#262626]"
@@ -317,10 +319,10 @@ export default function Home() {
 
         <section aria-labelledby="cta-heading" className="w-full max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
             className="relative overflow-hidden rounded-2xl border border-[#262626] bg-linear-to-b from-[#121212] to-[#0A0A0A] p-12 md:p-20 text-center"
           >
 

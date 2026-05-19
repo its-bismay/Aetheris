@@ -111,24 +111,28 @@ export default function DiffView() {
 
           <div className="flex items-center gap-4 bg-[#0A0A0A] border border-[#262626] rounded-md p-1.5 self-start shrink-0">
 
-            <div className="flex items-center gap-3 px-3 border-r border-[#262626]">
+            <div className="flex items-center gap-3 px-3 border-r border-[#262626]" aria-label="Diff Legend">
               <span className="flex items-center gap-1.5 text-[10px] font-mono tracking-widest text-[#EDEDED]/70 uppercase">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#818CF8]" /> Added
+                <span className="w-2.5 h-2.5 rounded-full bg-[#818CF8]" aria-hidden="true" /> 
+                <span className="sr-only">Token </span>Added
               </span>
               <span className="flex items-center gap-1.5 text-[10px] font-mono tracking-widest text-[#EDEDED]/70 uppercase">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-400" /> Removed
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400" aria-hidden="true" /> 
+                <span className="sr-only">Token </span>Removed
               </span>
               <span className="flex items-center gap-1.5 text-[10px] font-mono tracking-widest text-[#EDEDED]/70 uppercase">
-                <span className="w-2.5 h-1 bg-amber-500/50 block rounded-sm border-b border-amber-500 border-dotted" /> Modified
+                <span className="w-2.5 h-1 bg-amber-500/50 block rounded-sm border-b border-amber-500 border-dotted" aria-hidden="true" /> 
+                <span className="sr-only">Token </span>Modified
               </span>
             </div>
             
 
             <button
               onClick={() => setLockScroll(!lockScroll)}
+              aria-pressed={lockScroll}
               className="flex items-center gap-2 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest uppercase transition-colors hover:bg-[#1A1A1A] text-[#EDEDED]/70 outline-none focus-visible:ring-2 focus-visible:ring-[#6366F1]"
             >
-              {lockScroll ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
+              {lockScroll ? <Lock className="w-3.5 h-3.5" aria-hidden="true" /> : <Unlock className="w-3.5 h-3.5" aria-hidden="true" />}
               {lockScroll ? 'Lock Scroll' : 'Unlock Scroll'}
             </button>
           </div>

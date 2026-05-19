@@ -103,8 +103,7 @@ export function StreamingOutput({ state }: StreamingOutputProps) {
       <div 
         ref={scrollRef}
         className="flex-1 overflow-y-auto p-6 custom-scrollbar"
-        aria-live="polite"
-        aria-atomic="false"
+        tabIndex={0}
       >
         <div className="font-mono text-sm leading-relaxed text-[#EDEDED]/90 max-w-4xl">
           {output ? renderFormattedOutput(output) : (
@@ -133,6 +132,13 @@ export function StreamingOutput({ state }: StreamingOutputProps) {
             [Stream aborted by user]
           </div>
         )}
+
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          {status === 'streaming' ? 'Streaming response...' : ''}
+          {status === 'completed' ? `Stream completed with ${metrics.tokenCount} tokens.` : ''}
+          {status === 'error' ? 'Stream error occurred.' : ''}
+          {status === 'interrupted' ? 'Stream aborted.' : ''}
+        </div>
       </div>
 
     </div>

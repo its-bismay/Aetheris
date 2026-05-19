@@ -16,6 +16,7 @@ export function TokenRenderer({ ops, side }: TokenRendererProps) {
 
         let content = '';
         let className = '';
+        let srLabel = '';
 
         if (op.op === 'eq') {
           content = side === 'A' ? op.a : op.b;
@@ -23,17 +24,21 @@ export function TokenRenderer({ ops, side }: TokenRendererProps) {
         } else if (op.op === 'del' && side === 'A') {
           content = op.a;
           className = 'bg-red-500/20 text-red-400 decoration-red-500/50 line-through decoration-1';
+          srLabel = 'deleted:';
         } else if (op.op === 'ins' && side === 'B') {
           content = op.b;
           className = 'bg-[#6366F1]/20 text-[#818CF8] font-medium border-b border-[#6366F1]/50';
+          srLabel = 'inserted:';
         } else if (op.op === 'sub') {
           if (side === 'A') {
             content = op.a;
             className = 'bg-red-500/10 text-red-400 decoration-red-500/30 line-through decoration-1';
+            srLabel = 'deleted:';
           } else {
             content = op.b;
      
             className = 'bg-amber-500/20 text-amber-300 font-medium border-b border-amber-500/50 underline decoration-amber-500 decoration-dotted underline-offset-4';
+            srLabel = 'substituted:';
           }
         }
 
@@ -44,6 +49,7 @@ export function TokenRenderer({ ops, side }: TokenRendererProps) {
 
         return (
           <span key={index} className={cn("inline transition-colors rounded-sm px-px", className)}>
+            {srLabel && <span className="sr-only">{srLabel} </span>}
             {content}
           </span>
         );

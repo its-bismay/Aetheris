@@ -30,6 +30,7 @@ export function DiffToolbar({
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Enter prompt to generate comparison..."
           className="w-full bg-[#121212] border border-[#262626] rounded-md py-2.5 pl-10 pr-4 text-sm text-[#EDEDED] placeholder-[#EDEDED]/30 outline-none focus:border-[#464554] focus:ring-1 focus:ring-[#464554] transition-all"
+          aria-label="Comparison prompt"
         />
       </div>
 
@@ -38,7 +39,8 @@ export function DiffToolbar({
         <select
           value={modelA}
           onChange={(e) => setModelA(e.target.value)}
-          className="bg-[#121212] border border-[#262626] rounded-md py-2.5 px-3 text-sm font-mono text-[#EDEDED] outline-none focus:border-[#464554] transition-colors flex-1 lg:w-40 appearance-none cursor-pointer"
+          className="bg-[#121212] border border-[#262626] rounded-md py-2.5 px-3 text-sm font-mono text-[#EDEDED] outline-none focus-visible:ring-2 focus-visible:ring-[#6366F1] transition-colors flex-1 lg:w-40 appearance-none cursor-pointer"
+          aria-label="Select Model A"
         >
           {MODELS.map(m => <option key={m} value={m}>{m}</option>)}
         </select>
@@ -54,7 +56,8 @@ export function DiffToolbar({
         <select
           value={modelB}
           onChange={(e) => setModelB(e.target.value)}
-          className="bg-[#121212] border border-[#262626] rounded-md py-2.5 px-3 text-sm font-mono text-[#EDEDED] outline-none focus:border-[#464554] transition-colors flex-1 lg:w-40 appearance-none cursor-pointer"
+          className="bg-[#121212] border border-[#262626] rounded-md py-2.5 px-3 text-sm font-mono text-[#EDEDED] outline-none focus-visible:ring-2 focus-visible:ring-[#6366F1] transition-colors flex-1 lg:w-40 appearance-none cursor-pointer"
+          aria-label="Select Model B"
         >
           {MODELS.map(m => <option key={m} value={m}>{m}</option>)}
         </select>
